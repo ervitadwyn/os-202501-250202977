@@ -1,0 +1,46 @@
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\ThinkFast> wsl --install
+Downloading: Ubuntu
+Installing: Ubuntu
+Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
+Launching Ubuntu...
+Provisioning the new WSL instance Ubuntu
+This might take a while...
+Create a default Unix user account: ervitadwyn
+New password:
+Retype new password:
+passwd: password updated successfully
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+ervitadwyn@DESKTOP-F5LO17P:/mnt/c/Users/ThinkFast$ uname -a
+Linux DESKTOP-F5LO17P 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+ervitadwyn@DESKTOP-F5LO17P:/mnt/c/Users/ThinkFast$ whoami
+ervitadwyn
+ervitadwyn@DESKTOP-F5LO17P:/mnt/c/Users/ThinkFast$ lsmod | head
+Module                  Size  Used by
+tls                    98304  0
+intel_rapl_msr         16384  0
+intel_rapl_common      32768  1 intel_rapl_msr
+kvm_intel             356352  0
+kvm                   970752  1 kvm_intel
+irqbypass              12288  1 kvm
+crc32c_intel           16384  0
+battery                20480  0
+ac                     16384  0
+ervitadwyn@DESKTOP-F5LO17P:/mnt/c/Users/ThinkFast$ dmesg | head
+[    0.000000] Linux version 6.6.87.2-microsoft-standard-WSL2 (root@439a258ad544) (gcc (GCC) 11.2.0, GNU ld (GNU Binutils) 2.37) #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025
+[    0.000000] Command line: initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=8 hv_utils.timesync_implicit=1 console=hvc0 debug pty.legacy_count=0 WSL_ENABLE_CRASH_DUMP=1
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009ffff] usable
+[    0.000000] BIOS-e820: [mem 0x00000000000e0000-0x00000000000e0fff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x00000000001fffff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x0000000000200000-0x00000000f7ffffff] usable
