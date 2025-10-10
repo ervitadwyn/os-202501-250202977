@@ -12,10 +12,7 @@ Topik: Arsitektur Sistem Operasi dan Kernel
 ---
 
 ## Tujuan
-Tuliskan tujuan praktikum minggu ini.  
-Contoh:  
-> Mahasiswa mampu menjelaskan fungsi utama sistem operasi dan peran kernel serta system call.
-
+Memahami fungsi dasar sistem operasi dan kernel, memahami insalasi serta penggunaan WSL untuk menjalankan Linux di Windows, dan mengidentifikasi microkernel, monolitik, hybird kernel.
 ---
 
 ## Dasar Teori
