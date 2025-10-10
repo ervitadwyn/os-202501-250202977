@@ -95,7 +95,10 @@ strace -e trace=open,read,write,close cat/etc/passwd
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+![Screenshot hasil](screenshots/syscall-diagram)
+![Screenshot hasil](screenshots/Screeenshot_Stracels)
+![Screenshot hasil](screenshots/Screenshot_strace-etraceopenreadwriteclosecatetcpasswd)
+![Screenshot hasil](screenshots/Screenshot_dmesgtailn10)
 
 ---
 
@@ -181,7 +184,7 @@ System call berperan penting sebagai penghubung antara program pengguna dan kern
 ## Refleksi Diri
 Tuliskan secara singkat:
 - Apa bagian yang paling menantang minggu ini?
-  Hal yang menantang pada minggu kedua adalah saya mulai bingung dan pusing tentang system call, tulisan yang keluar pada program cukup banyak dan saya butuh waktu lama untuk memahami baris pada strace. Proses transisi antara kedua mode cukup membingungkan karena melibatkan banyak tahapan yang tidak terlihat langsung. Selain itu, menafsirkan hasil keluaran strace dan dmesg juga memerlukan ketelitian, sebab output-nya berisi banyak baris teknis yang harus dianalisis untuk mengetahui fungsi masing-masing system call. 
+  Hal yang menantang pada minggu kedua adalah saya mulai bingung dan pusing dan mengerjakan hingga begadang, tulisan yang keluar pada program cukup banyak dan saya butuh waktu lama untuk memahami baris pada strace. Proses transisi antara kedua mode cukup membingungkan karena melibatkan banyak tahapan yang tidak terlihat langsung. Selain itu, menafsirkan hasil keluaran strace dan dmesg juga memerlukan ketelitian, sebab output-nya berisi banyak baris teknis yang harus dianalisis untuk mengetahui fungsi masing-masing system call. 
 - Bagaimana cara Anda mengatasinya?
   Saya mengatasinya dengan mempelajari kembali teori dasar tentang system call dan mode eksekusi sistem operasi melalui modul praktikum, referensi dari
   1. Abraham Silberschatz, Peter Baer Galvin, Greg Gagne. *Operating System Concepts*, 10th Edition, Wiley, 2018.  
