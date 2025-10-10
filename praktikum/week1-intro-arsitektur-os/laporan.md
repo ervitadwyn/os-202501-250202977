@@ -171,25 +171,34 @@ Dengan demikian, tidak ada satu model yang mutlak terbaik; yang relevan adalah p
 
 ## Quiz
 1. Sebutkan tiga fungsi utama sistem operasi.
-    **Jawaban: Managemen sumber daya, Management Proses, dan managemt sistem file dan antarmuka user.**  
-2. Jelaskan perbedaan antara *kernel mode* dan *user mode*.
-    **Jawaban:Perbedaan antara kernel mode dan user mode yaitu terletak pada : Hak akses yaitu Kernel mode memiliki akses penuh ke seluruh sumber daya sistem sedangkan User Mode memiliki akses yang terbatas dan tidak langsung ke hardware, Kegunaan yaitu Karnel Mode Digunakan untuk menjalankan bagian inti OS sedangkan User Mode digunakan oleh aplikasi dan program pengguna, Resiko Kesalahan pada Karnel Mode kesalahan bisa menyebabkan sistem crash sedangkan pada User Mode kesalaha hanya mempengaruhi Aplikasi tersebut, dan pada contoh aktivitas dari kernel mode yaitu msalah satunya mengelola memori sedangkan User Mode Menjalankan Browser, text editor, dan terminal. Dapat di simpulkan bahwa Kernel mode untuk sistem operasi dan User Mode untuk aplikasi pengguna.** 
-3. Sebutkan contoh OS dengan arsitektur monolithic dan microkernel.
-    **Jawaban:
-   Contoh OS pada Monolithic   :   - Linux
-                                   - MS-DOS
-                                   - Unix Tradisional
-   Contoh OS pada Microkernel  :   - Minix
-                                   - QNX
-                                   - Mach** 
+   
+   **Jawaban:**
+   
+   **Managemen sumber daya, Management Proses, dan managemt sistem file dan antarmuka user.**  
+  
+3. Jelaskan perbedaan antara *kernel mode* dan *user mode*.
+   
+   **Jawaban:**
+   
+   **Perbedaan antara kernel mode dan user mode yaitu terletak pada : Hak akses yaitu Kernel mode memiliki akses penuh ke seluruh sumber     daya sistem sedangkan User Mode memiliki akses yang terbatas dan tidak langsung ke hardware, Kegunaan yaitu Karnel Mode Digunakan       untuk menjalankan bagian inti OS sedangkan User Mode digunakan oleh aplikasi dan program pengguna, Resiko Kesalahan pada Karnel Mode    kesalahan bisa menyebabkan sistem crash sedangkan pada User Mode kesalaha hanya mempengaruhi Aplikasi tersebut, dan pada contoh         aktivitas dari kernel mode yaitu msalah satunya mengelola memori sedangkan User Mode Menjalankan Browser, text editor, dan terminal.    Dapat di simpulkan bahwa Kernel mode untuk sistem operasi dan User Mode untuk aplikasi pengguna.** 
+   
+4. Sebutkan contoh OS dengan arsitektur monolithic dan microkernel.
+   
+   **Jawaban:**
+   
+   **Contoh OS pada Monolithic   :  Linux, MS-DOS, dan Unix Tradisional**
+   
+   **Contoh OS pada Microkernel  :  Minix, QNX, dan Mach** 
 
 ---
 
 ## Refleksi Diri
 Tuliskan secara singkat:
 - Apa bagian yang paling menantang minggu ini?
+  
   Hal yang saya rasakan dan paling menantang pada minggu ini yaitu pada bagian dimana saya belajar proses instalasi dan konfigurasi WSL, karena saya harus memahami hubungan antara Windows dan Linux sebelum saya menjalankan programnya, karena sebelumnya saya belum pernah mencoba menggunakan Ubuuntu, saya merasa tertantang tetapi sedikit takut dan was was karena saya mencobanya menggunakan laptop pribadi, sebelum itu saya mencoba untuk memahami konsep kernel dan system call sebelum saya memulai praktikum, meskipun hasil percobaan berjalan dengan baik tetap ada rasa ragu dan bingung.
 - Bagaimana cara Anda mengatasinya?
+  
   Untuk mengatasi tantangan tersebut, saya mencari referensi dari internet seperti google, youtube dan beberapa panduan online, untuk melihat tutorial instalasi dengan benar sehingga tidak terjadi crash dan kesalahan yang lain. Dan tetap berusaha meyakinkan diri saya bahwa saya bisa.
 ---
 
