@@ -78,6 +78,7 @@ dmesg | head
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
 ![Screenshot hasil](screenshots/ScreenshotWSL.png)
+![Screenshot hasil](screenshots/ScreenshotDiagram.png)
 
 ---
 
