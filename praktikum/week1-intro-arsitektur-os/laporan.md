@@ -83,32 +83,48 @@ Sertakan screenshot hasil percobaan atau diagram:
 
 ## Analisis
 - Makna hasil percobaan
-  Dari hasil percobaan tersebut, dapat di peroleh bahwa instalasi WSL berhasil menciptakan lingkungan Linux di dalam sistem operasi Windows tanpa perlu dual boot/virtual machine. Perintah yang saya coba seperti :
+  Dari hasil percobaan tersebut, dapat di peroleh bahwa instalasi WSL berhasil menciptakan lingkungan Linux di dalam sistem operasi       Windows tanpa perlu dual boot/virtual machine. Perintah yang saya coba seperti :
   ```bash
    uname -a
    whoami
    lsmod | head
    dmesg | head
    ```
-menunjukan bahwa kernel Linux aktif dan dapat berinteraksi dengan user melalui terminal. Membuktikan bahwa Windows mampu menjalankan sistem Linux secara langsung dengan memanfaatkan lapisan hubungan kernel yang di sediakan WSL.
+   menunjukan bahwa kernel Linux aktif dan dapat berinteraksi dengan user melalui terminal. Membuktikan bahwa Windows mampu menjalankan    sistem Linux secara langsung dengan memanfaatkan lapisan hubungan kernel yang di sediakan WSL.
 
 - Hubungan hasil dengan teori
-  Fungsi Kernel sebagai inti sistem operasi yang mengatur komunikasi antara hardware dan software. Saat perintah di jalankan user dapat melihat bagaimana kernel memuat modul dan mengelola pesan sistem. Peran Kernel sebagai pengendali sistem. Ketika user menjalankan perintah di terminal sistem akan melakukan system call ke kernel untuk meminta layanan seperti membaca memori, menampilkan proses, dan mengakses perangkat. WSL menerjemahkan system call Linux agar dapat di jalankan di atas kernel Windows. Hasil Percobaan terlihat konsep arsitektur Sistem Operasi, dimana WSL berperan sebagai lapisan kompatibilitas antara Windows dan Linux. Kernel Linux beroperasi secara virtual di atas kernel Windows tanpa tabrakan secara langsung dengan hardware. 
+  
+   Fungsi Kernel sebagai inti sistem operasi yang mengatur komunikasi antara hardware dan software. Saat perintah di jalankan user         dapat    melihat bagaimana kernel memuat modul dan mengelola pesan sistem. Peran Kernel sebagai pengendali sistem. Ketika user          menjalankan perintah di terminal sistem akan melakukan system call ke kernel untuk meminta layanan seperti membaca memori,              menampilkan proses, dan mengakses perangkat. WSL menerjemahkan system call Linux agar dapat di jalankan di atas kernel Windows.         Hasil Percobaan terlihat konsep arsitektur Sistem Operasi, dimana WSL berperan sebagai lapisan kompatibilitas antara Windows dan        Linux. Kernel Linux beroperasi secara virtual di atas kernel Windows tanpa tabrakan secara langsung dengan hardware. 
 - Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?
-  1. Kernel
+  
+   **Kernel**
+  
      Linux      : Berjalan langsung di atas Hardware
+  
      WSL        : Dijalankan secara virtual di atas kernel Windows
-  2. Akses Hardware
+  
+   **Akses Hardware**
+  
      Linux      : Langsung ke hardware
+  
      WSL        : Akses terbatas tergantung izin dari Windows
-  3. Kinerja
+  
+   **Kinerja**
+  
      Linux      : Lebih cepat, tidak ada lapisan transisi
+  
      WSL        : Sedikit lebih lambat, ada lapisan WSL
-  4. System Call
+  
+   **System Call**
+  
      Linux      : Dijalankan oleh kernel Linux
+  
      WSL        : Diterjemahkan ke kernel Windows
-  5. Fleksibilitas
+  
+   **Fleksibilitas**
+  
      Linux      : Dapat mengubah kernel dan modul sendiri
+  
      WSL        : Kernel di kontrol oleh Windows
 
      
@@ -120,6 +136,38 @@ menunjukan bahwa kernel Linux aktif dan dapat berinteraksi dengan user melalui t
 - Meskipun WSL tidak menjalankan kernel Linux secara penuh seperti sistem Linux asli, hasil percobaan menunjukan bahwa hubungan antara Windows dan Linux melalui WSL tetap efisien dan fungsional untuk pengembangan maupun pembelajaran sistem operasi.
 
 ---
+# Perbedaan Monolithic Kernel, Microkernel, dan Layered Architecture
+
+Arsitektur sistem operasi merupakan fondasi penting yang menentukan bagaimana perangkat keras berinteraksi dengan perangkat lunak serta bagaimana layanan OS diberikan kepada aplikasi dan pengguna. Tiga model yang paling dikenal adalah monolithic kernel, microkernel, dan layered architecture.
+
+## Monolithic Kernel
+Monolithic kernel adalah model di mana seluruh layanan sistem operasi seperti manajemen memori, sistem file, manajemen proses, hingga device driver berjalan di ruang kernel (kernel space). Artinya, semua komponen inti berada dalam satu kesatuan besar. Keuntungannya adalah performa tinggi karena komunikasi antar komponen langsung dilakukan tanpa overhead tambahan. Namun, kelemahannya adalah kompleksitas dan kerentanan stabilitas: jika satu driver atau modul rusak, dapat menyebabkan crash seluruh sistem.
+
+**Contoh nyata:** Linux, Unix tradisional, dan MS-DOS.
+
+## Microkernel
+Microkernel adalah pendekatan yang berusaha membuat kernel sesederhana mungkin. Hanya fungsi dasar seperti komunikasi antar-proses (IPC), manajemen memori sederhana, dan scheduling yang berjalan di kernel space. Layanan lain, termasuk driver perangkat dan sistem file, ditempatkan di user space. Kelebihan utamanya adalah keamanan, modularitas, dan keandalan: jika satu layanan gagal, sistem inti tetap berjalan. Namun, kelemahannya adalah overhead komunikasi (karena sering memerlukan mekanisme IPC) yang dapat menurunkan performa jika tidak dioptimalkan.
+
+**Contoh nyata:** QNX, Minix, Mach (digunakan dalam varian macOS dan iOS).
+
+## Layered Architecture
+Layered architecture membagi sistem operasi ke dalam beberapa lapisan (layer) yang hierarkis, dari hardware di bawah hingga antarmuka pengguna di atas. Setiap lapisan hanya berinteraksi dengan lapisan di atas dan di bawahnya. Model ini menawarkan desain yang terstruktur dan mudah dipahami, sehingga lebih sederhana dalam pengembangan dan pemeliharaan. Kelemahannya adalah potensi penurunan efisiensi, karena kadang permintaan harus melewati beberapa lapisan meskipun sebenarnya bisa diakses lebih langsung.
+
+**Contoh nyata:** THE OS (sistem operasi eksperimen awal oleh Dijkstra), Windows NT (menggabungkan konsep layered dan modular).
+
+## Analisis Relevansi untuk Sistem Modern
+Dalam konteks sistem modern, setiap model memiliki relevansi tersendiri tergantung kebutuhan:
+
+- **Monolithic kernel** tetap populer, khususnya dalam sistem open source dan server (misalnya Linux). Alasannya, performa tinggi sangat dibutuhkan pada aplikasi berskala besar, dan komunitas mampu mengelola kompleksitas kode. Linux juga mendukung modularisasi (loadable kernel modules), sehingga sebagian kelemahan monolithic kernel bisa diatasi.
+
+- **Microkernel** semakin relevan untuk sistem embedded dan real-time, di mana keandalan dan keamanan menjadi prioritas utama. Misalnya, QNX digunakan pada sistem otomotif dan peralatan industri. Namun, untuk desktop atau server umum, microkernel murni masih jarang dipakai karena trade-off performa.
+
+- **Layered architecture** lebih dilihat sebagai konsep desain daripada implementasi murni. OS modern seperti Windows dan macOS tidak sepenuhnya layered, tetapi memanfaatkan struktur berlapis untuk menjaga modularitas dan keteraturan. Dengan demikian, layered architecture lebih berguna sebagai kerangka konseptual daripada model kernel yang berdiri sendiri.
+
+## Kesimpulan
+Model yang paling relevan untuk sistem operasi modern adalah **hybrid kernel**, yaitu kombinasi antara monolithic dan microkernel. Contoh nyata adalah Windows NT (Windows modern) dan macOS/iOS. Hybrid kernel berusaha mengambil performa monolithic sekaligus modularitas dan keandalan microkernel. Untuk sistem server dan cloud, Linux (monolithic dengan modul dinamis) mendominasi. Untuk perangkat mobile dan embedded, microkernel atau hybrid kernel lebih dipilih.
+
+Dengan demikian, tidak ada satu model yang mutlak terbaik; yang relevan adalah penerapan kernel hybrid dan modular yang menyesuaikan kebutuhan spesifik: performa untuk server, keandalan untuk embedded, dan fleksibilitas untuk desktop.
 
 ## Quiz
 1. Sebutkan tiga fungsi utama sistem operasi.
