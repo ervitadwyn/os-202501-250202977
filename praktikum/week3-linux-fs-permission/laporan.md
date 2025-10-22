@@ -351,6 +351,12 @@ Kesimpulan Analisis
 Perintah chmod 600 memperketat keamanan file dengan membatasi akses hanya untuk pemiliknya.
 Sebelumnya file bisa dibaca oleh siapa pun, tetapi setelah chmod, file menjadi pribadi dan terlindungi dari akses pengguna lain.
 
+## Peran chmod dan chown dalam keamanan sistem linux
+
+Secara singkat, chmod dan chown berperan penting dalam menjaga keamanan sistem Linux.
+chmod mengatur hak akses file (read, write, execute) agar hanya pengguna tertentu yang bisa membacanya, mengedit, atau menjalankannya.
+chown menentukan siapa pemilik dan grup file, sehingga tanggung jawab serta batas akses lebih jelas.
+Keduanya bekerja bersama untuk mencegah akses tidak sah, melindungi data sensitif, dan menjaga integritas sistem.
 
 - Makna hasil percobaan ini menunjukkan bagaimana sistem operasi Linux mengatur file, direktori, dan hak akses dengan struktur yang jelas dan aman. Melalui percobaan pertama, pengguna memahami cara menavigasi sistem file menggunakan perintah dasar seperti `pwd`, `ls`, `cd`, dan `ls -a`, yang berfungsi untuk mengetahui lokasi kerja, melihat isi direktori, berpindah antar folder, serta menampilkan file tersembunyi. Percobaan selanjutnya pada file `/etc/passwd` memperlihatkan bahwa Linux menyimpan seluruh data pengguna dalam bentuk teks yang mudah dibaca, dengan struktur baris yang mencakup username, UID, GID, direktori home, dan shell login. Ini memberikan pemahaman bahwa setiap akun di sistem memiliki identitas dan konfigurasi tersendiri.
 Kemudian, pada percobaan pembuatan dan pengaturan izin file menggunakan `chmod`, terlihat bahwa sistem Linux memiliki mekanisme pengamanan yang kuat. Sebelum perintah `chmod 600` dijalankan, file dapat dibaca oleh semua pengguna; namun setelahnya, hanya pemilik yang memiliki akses baca dan tulis, sementara pengguna lain tidak memiliki izin sama sekali. Hal ini menunjukkan pentingnya pengaturan hak akses untuk menjaga kerahasiaan dan integritas data. Terakhir, perubahan pemilik file dengan `chown` menegaskan adanya hierarki hak akses, di mana hanya pengguna dengan hak administratif (root) yang dapat mengubah kepemilikan file. Secara keseluruhan, percobaan ini bermakna bahwa Linux dirancang dengan sistem keamanan berbasis izin dan kepemilikan yang memastikan setiap file terlindungi serta hanya dapat diakses oleh pengguna yang berhak.
@@ -405,7 +411,7 @@ Jadi chown digunakan untuk mengganti siapa yang memiliki file, sedangkan chmod d
 ## Refleksi Diri
 Tuliskan secara singkat:
 - Apa bagian yang paling menantang minggu ini?
-- Bagaimana cara Anda mengatasinya?  
+- Bagaimana cara Anda mengatasinya?
 
 ---
 
