@@ -124,6 +124,40 @@ Sertakan screenshot hasil percobaan atau diagram:
 ![Screenshot hasil](screenshots/week4_2.png)
 
 ---
+## Eksperimen 1
+
+Perintah 
+``` bash
+whoami
+```
+berfungsi menampilkan nama useryang sedang login di terminal Linux. Artinya user yang sedang masuk ke sistem dan menjalankan terminal adalah ervitadwyn. Perintah ini berguna untuk memastikan user sedang berada sebagai user biasa atau root (administrator).
+```bash
+id
+```
+Berfungsi menampilkan informasi lengkap identitas user, yaitu : UID,GID,Groups
+Penjelasan:
+
+- uid=1000(ervitadwyn) = User ID adalah 1000, nama user ervitadwyn
+
+- gid=1000(ervitadwyn) = Group ID utama juga bernama ervitadwyn
+
+- groups=... = Menunjukkan user ini tergabung di beberapa grup, misalnya:
+
+   adm = bisa melihat log sistem
+
+   cdrom = akses ke perangkat CD/DVD
+
+   sudo = punya hak administrator (bisa jalankan perintah sudo)
+
+   dip = akses jaringan dial-up
+
+   plugdev = akses perangkat USB/external
+
+   users = grup umum untuk pengguna biasa
+```bash
+groups
+```
+Berfungsi menampilkan daftar nama grup yang di ikuti oleh user saat ini tanpa menyebutkan idnya. Artinya user ervitadwyn tergabung dalam tujuh grup, termasuk sudo, sehingga bia menjalankan perintah dengan hak akses admin.
 
 ## Analisis
 - Jelaskan makna hasil percobaan.  
