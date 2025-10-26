@@ -159,6 +159,28 @@ groups
 ```
 Berfungsi menampilkan daftar nama grup yang di ikuti oleh user saat ini tanpa menyebutkan idnya. Artinya user ervitadwyn tergabung dalam tujuh grup, termasuk sudo, sehingga bia menjalankan perintah dengan hak akses admin.
 
+## Eksperimen 2
+
+Perintah
+```bash
+ps aux | head -10
+```
+Berfungsi untuk menampilkan daftar semua proses yan sedang berjalan di sistem(baik milik user, maupun backround dan head -10 akan hanya menampilkan 10 baris pertama agar output tidak terlalu panjang.
+```bash
+top -n 1
+```
+Berfungsi untuk menampilkan proses-proses aktif secara real-time, -n 1 artinya hanya tampil 1 kali update ( tidak terus berjalan ).
+
+Penjelasan Kolom Penting
+
+| Kolom       | Arti                       | Penjelasan                                                                                                                    |
+| ----------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **PID**     | Process ID                 | Nomor unik yang diberikan sistem untuk setiap proses. Digunakan untuk mengontrol atau menghentikan proses (misal `kill PID`). |
+| **USER**    | User name                  | Nama user yang menjalankan proses tersebut (misal `root`, `ervitadwyn`).                                                      |
+| **%CPU**    | Persentase penggunaan CPU  | Menunjukkan berapa banyak CPU yang digunakan oleh proses itu. Nilai tinggi berarti proses tersebut sedang aktif/berat.        |
+| **%MEM**    | Persentase penggunaan RAM  | Menunjukkan berapa persen memori (RAM) yang dipakai proses itu. Semakin besar, semakin banyak memori yang digunakan.          |
+| **COMMAND** | Nama perintah atau program | Menunjukkan **perintah** atau **aplikasi** yang dijalankan. Misalnya: `sleep`, `bash`, `firefox`, `systemd`, dll.             |
+
 ## Analisis
 - Jelaskan makna hasil percobaan.  
 - Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
