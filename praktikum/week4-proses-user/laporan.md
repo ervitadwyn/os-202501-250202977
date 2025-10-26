@@ -93,12 +93,29 @@ Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
 
 ## Kode / Perintah
 Tuliskan potongan kode atau perintah utama:
+ ```bash
+   whoami
+   id
+   groups
+   ```
+ ```bash
+     sudo adduser praktikan
+     sudo passwd praktikan
+ ```
+ ```bash
+   ps aux | head -10
+   top -n 1
+   ```
 ```bash
-uname -a
-lsmod | head
-dmesg | head
+     sleep 1000 &
+     ps aux | grep sleep
 ```
-
+ ```bash
+     kill <PID>
+ ```
+ ```bash
+   pstree -p | head -20
+ ```
 ---
 
 ## Hasil Eksekusi
