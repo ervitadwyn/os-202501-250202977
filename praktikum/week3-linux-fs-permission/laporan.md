@@ -128,7 +128,7 @@ Tuliskan potongan kode atau perintah utama:
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/week3praktikfiks.png)
+![Screenshot hasil](screenshots/week3new.png)
 
 ---
 
