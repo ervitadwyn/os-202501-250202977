@@ -411,7 +411,9 @@ Jadi chown digunakan untuk mengganti siapa yang memiliki file, sedangkan chmod d
 ## Refleksi Diri
 Tuliskan secara singkat:
 - Apa bagian yang paling menantang minggu ini?
+  pusing, tidak fokus, mengetik huruf L malah jadi angka 1, kesalahan dalam praktik code, dan tidak sadar atas kesalahan.
 - Bagaimana cara Anda mengatasinya?
+  Mencoba melakukan praktik ulang
 
 ---
 
