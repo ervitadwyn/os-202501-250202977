@@ -431,13 +431,18 @@ Hasil percobaan membuktikan peran kernel dan system call dalam mengatur interaks
 ---
 
 ## Quiz
-1. Apa fungsi dari perintah `chmod`? 
+1. Apa fungsi dari perintah `chmod`?
+   
    **Jawaban:**
+
    chmod berfungsi untuk mengatur tingkat keamanan dan kontrol akses file agar data tidak disalahgunakan oleh pengguna lain di sistem
-2. Apa arti dari kode permission `rwxr-xr--`?  
+2. Apa arti dari kode permission `rwxr-xr--`?
+   
    **Jawaban:**
+   
    Kode permission rwxr-xr-- menunjukkan hak akses (permission) suatu file atau direktori di Linux yang terbagi untuk tiga jenis pengguna: owner (pemilik), group (kelompok), dan others (pengguna lain).
-3. Jelaskan perbedaan antara `chown` dan `chmod`.  
+3. Jelaskan perbedaan antara `chown` dan `chmod`.
+   
    **Jawaban:**
 
 | Aspek                  | `chown`                                                                        | `chmod`                                                                                        |
