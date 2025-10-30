@@ -22,8 +22,11 @@ Setelah menyelesaikan tugas ini, mahasiswa mampu:
 ---
 
 ## Dasar Teori
-Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
-
+1. Konsep Proses dalam Sistem Operasi
+2. Manajemen Proses oleh Sistem Operasi
+3. Monitoring Proses
+4. Kontrol dan Terminasi Proses
+5. Peran User dan Hak Akses
 ---
 
 ## Langkah Praktikum
@@ -181,15 +184,119 @@ Penjelasan Kolom Penting
 | **%MEM**    | Persentase penggunaan RAM  | Menunjukkan berapa persen memori (RAM) yang dipakai proses itu. Semakin besar, semakin banyak memori yang digunakan.          |
 | **COMMAND** | Nama perintah atau program | Menunjukkan **perintah** atau **aplikasi** yang dijalankan. Misalnya: `sleep`, `bash`, `firefox`, `systemd`, dll.             |
 
-## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
-- Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+## Eksperimen 3
+Perintah:
+```bash
+sleep 1000 &
+```
+Berarti sistem akan menjalankan proses yang diam (tidak melakukan apa-apa) selama 1000 detik.
 
----
+Output dari terminal:
+```bash
+[1] 540
+```
+
+540 yaitu PID (Process ID) dari proses sleep
+Jadi PID proses sleep = 540
+
+Perintah:
+```bash
+ps aux | grep sleep
+```
+ps aux menampilkan semua proses yang sedang berjalan.
+grep sleep menyaring hasil hanya yang mengandung kata “sleep”.
+
+Dari hasil praktik terlihat seperti ini:
+
+```bash
+ervitadwyn   540  0.0  0.0  3144  1664 pts/0  S+  21:02   0:00 sleep 1000
+ervitadwyn   542  0.0  0.0  4088  1920 pts/0  S+  21:02   0:00 grep --color=auto sleep
+```
+
+
+Baris pertama adalah proses sleep yang  dijalankan.
+
+540 = PID dari proses sleep
+
+S+ = status sleeping (proses sedang idle)
+
+## Eksperimen 4
+Analisis Hierarki Proses
+
+Proses Induk Utama:
+
+Proses paling atas adalah
+```bash
+systemd(1)
+```
+
+ini adalah proses pertama yang dijalankan oleh kernel saat sistem Linux booting.
+Semua proses lain di sistem merupakan turunan (child process) dari systemd.
+
+Proses Anak (Child Process) dari systemd:
+```bash
+agetty(170) → mengelola login terminal.
+
+cron(158) → menjalankan tugas terjadwal (scheduled tasks).
+
+dbus-daemon(159) → komunikasi antar proses sistem.
+
+rsyslogd(188) → menangani log sistem.
+
+systemd-journald(89) → mencatat log aktivitas sistem.
+
+systemd-logind(126) → menangani sesi login user.
+
+systemd-resolved(116) → menangani DNS resolver.
+
+systemd-timesyncd(114) → sinkronisasi waktu sistem.
+
+systemd-udevd(99) → mengelola perangkat keras (device manager).
+
+bash(477) → shell tempat kamu menjalankan perintah.
+
+pstree(556) → proses yang sedang menampilkan pohon ini (anak dari bash).
+```
+
+Urutan Hierarki Singkat:
+
+```bash
+systemd(1)
+  └── bash(477)
+       └── pstree(556)
+```
+
+systemd adalah induk utama.
+bash adalah proses shell yang dibuat oleh systemd.
+pstree adalah proses anak dari bash, yang sedang kamu jalankan untuk melihat struktur pohon ini.
+
+
+Berdasarkan hasil perintah pstree -p | head -20, proses induk utama pada sistem adalah systemd (PID 1).
+Proses ini memiliki banyak proses turunan seperti cron, dbus-daemon, systemd-journald, bash, dan lain-lain.
+Proses bash kemudian menurunkan proses pstree, yang digunakan untuk menampilkan struktur hierarki tersebut.
+
+## Analisis
+Dari hasil percobaan yang telah dilakukan, dapat dipahami bahwa setiap aktivitas di sistem operasi Linux dijalankan sebagai suatu proses yang memiliki identitas unik berupa PID (Process ID). Melalui perintah seperti ps, top, dan pstree, pengguna dapat memantau status, hierarki, serta penggunaan sumber daya dari setiap proses yang berjalan. Selain itu, dengan perintah sleep dan kill, pengguna juga dapat membuat, memantau, atau menghentikan proses secara langsung. Hasil ini menunjukkan bahwa Linux memiliki sistem multitasking yang efisien dan terstruktur, di mana setiap proses dapat dijalankan secara paralel tanpa saling mengganggu. Dengan adanya informasi seperti USER, %CPU, dan %MEM, pengguna dapat memahami bagaimana sistem mengalokasikan sumber daya untuk setiap proses.
+
+Hasil percobaan ini berkaitan erat dengan teori dasar tentang fungsi kernel dan system call dalam arsitektur sistem operasi. Kernel berperan sebagai inti sistem yang bertugas untuk mengelola proses, memori, dan komunikasi antar-proses. Ketika pengguna menjalankan perintah melalui shell, kernel akan memanggil system call seperti fork() dan exec() untuk membuat dan mengeksekusi proses baru. Hal ini menunjukkan bahwa ada interaksi langsung antara user space (tempat perintah dijalankan) dengan kernel space (tempat kernel bekerja). Arsitektur Linux yang berlapis (layered architecture) memisahkan kedua ruang tersebut agar sistem tetap stabil dan aman. Dengan demikian, percobaan ini membuktikan bagaimana perintah sederhana di terminal sebenarnya merupakan bagian dari mekanisme yang lebih dalam antara shell, kernel, dan manajemen proses di sistem operasi.
+
+Perbedaan hasil di lingkungan OS berbeda (Linux vs Windows) :
+
+| Aspek                     | Linux                                                                 | Windows                                                                               |
+| ------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| **Manajemen Proses**      | Menggunakan perintah terminal (`ps`, `top`, `kill`, `pstree`).        | Menggunakan GUI (Task Manager) dan CLI (`tasklist`, `taskkill`).                      |
+| **Struktur Hierarki**     | Memiliki *parent-child process tree*, berawal dari `systemd (PID 1)`. | Menggunakan *Process Manager*, tetapi hierarki tidak selalu ditampilkan secara jelas. |
+| **System Call**           | Terbuka dan dapat diakses melalui shell, fleksibel untuk scripting.   | Lebih tertutup dan dikontrol oleh kernel secara internal.                             |
+| **Interaksi User–Kernel** | Terjadi langsung melalui shell berbasis teks.                         | Lebih sering melalui antarmuka grafis (GUI).                                          |
+
 
 ## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
+
+1. Dari hasil praktikum, dapat disimpulkan bahwa setiap aktivitas yang terjadi di sistem operasi Linux dikelola dalam bentuk proses dengan identitas unik (PID), yang dapat dipantau dan dikontrol menggunakan perintah seperti ps, top, kill, dan pstree.
+
+2. Linux memiliki struktur hierarki proses yang jelas, di mana seluruh proses berasal dari proses induk utama systemd (PID 1). Hal ini menunjukkan cara kerja sistem operasi dalam mengatur komunikasi dan ketergantungan antar-proses secara efisien.
+
+3. Melalui percobaan ini juga terbukti bahwa kernel berperan sebagai pengendali utama sistem, menghubungkan perintah pengguna (user space) dengan eksekusi nyata proses (kernel space) melalui mekanisme system call.
 
 ---
 Tugas & Quiz
@@ -199,18 +306,81 @@ Tugas & Quiz
 3. Jelaskan hubungan antara user management dan keamanan sistem Linux.  
 4. Upload laporan ke repositori Git tepat waktu.
 
+Gambar hieraraki proses
+```bash
+systemd(1)
+├── agetty(170)
+├── cron(158)
+├── dbus-daemon(159)
+├── rsyslogd(188)
+├── systemd-journald(89)
+├── systemd-logind(126)
+├── systemd-resolved(116)
+├── systemd-timesyncd(114)
+├── systemd-udevd(99)
+├── unattended-upgr(243)
+├── wsl-pro-service(195)
+└── bash(477)
+     ├── sleep(540)
+     └── pstree(556)
+```
+
+**Hubungan antara User Management dan Keamanan Sistem Linux**
+Manajemen pengguna (user management) memiliki peran yang sangat penting dalam menjaga keamanan sistem operasi Linux. Dalam sistem Linux, setiap aktivitas dijalankan oleh user account tertentu dengan hak akses yang berbeda-beda. Pembagian hak akses inilah yang menjadi dasar dari sistem keamanan berbasis multi-user.
+
+Pembatasan Hak Akses (Privileges):
+Setiap user memiliki izin tertentu terhadap file, direktori, dan proses. Pengguna biasa (non-root) hanya bisa mengakses sumber daya miliknya sendiri, sedangkan user root memiliki hak penuh terhadap seluruh sistem. Dengan pembagian ini, kerusakan atau kesalahan pada satu user tidak akan memengaruhi keseluruhan sistem.
+
+Pengelolaan Grup dan Izin (Permissions):
+Linux menggunakan sistem user–group–others untuk mengatur siapa yang boleh membaca (r), menulis (w), dan menjalankan (x) suatu file. Administrator dapat menempatkan pengguna ke dalam grup tertentu agar memiliki akses kolektif terhadap sumber daya bersama. Hal ini mencegah akses tidak sah dan memperkuat keamanan data.
+
+Keamanan Melalui Autentikasi dan Logging:
+Sistem Linux menerapkan autentikasi dengan password terenkripsi dan mencatat aktivitas pengguna dalam log sistem (seperti /var/log/auth.log). Dengan begitu, setiap login, perintah sudo, atau perubahan sistem dapat dilacak, membantu administrator mendeteksi potensi pelanggaran keamanan.
+
+Isolasi Proses antar User:
+Kernel Linux memastikan bahwa proses milik satu user tidak dapat memodifikasi atau mengintip proses milik user lain tanpa izin. Isolasi ini melindungi stabilitas dan integritas sistem, terutama dalam lingkungan multi-user seperti server atau sistem kampus.
+
+
 ### Quiz
 Tuliskan jawaban di bagian **Quiz** pada laporan:
-1. Apa fungsi dari proses `init` atau `systemd` dalam sistem Linux?  
-2. Apa perbedaan antara `kill` dan `killall`?  
+1. Apa fungsi dari proses `init` atau `systemd` dalam sistem Linux?
+   **Jawaban :**
+
+Fungsinya adalah untuk:
+
+1. Menginisialisasi sistem, seperti menyiapkan lingkungan kernel dan memulai layanan penting.
+
+2. Menjalankan dan mengelola semua proses lain, termasuk servis background (daemon).
+
+3. Mengatur urutan startup dan shutdown sistem secara terkoordinasi.
+   
+2. Apa perbedaan antara `kill` dan `killall`?
+
+   **Jawaban :**
+   
+   | Perintah      | Fungsi Utama                                                                         | Target                           | Contoh Penggunaan | Keterangan                                            |
+| ------------- | ------------------------------------------------------------------------------------ | -------------------------------- | ----------------- | ----------------------------------------------------- |
+| **`kill`**    | Mengirim sinyal (biasanya untuk menghentikan) ke **proses tertentu berdasarkan PID** | Berdasarkan **PID (Process ID)** | `kill 1234`       | Menghentikan proses dengan PID 1234 saja              |
+| **`killall`** | Mengirim sinyal ke **semua proses dengan nama tertentu**                             | Berdasarkan **nama proses**      | `killall firefox` | Menghentikan semua proses bernama “firefox” sekaligus |
+
 3. Mengapa user `root` memiliki hak istimewa di sistem Linux?
+
+   **Jawaban :**
+   
+   User root adalah penguasa tertinggi dalam sistem Linux, dirancang untuk melakukan tugas administrasi dan pemeliharaan yang tidak boleh dilakukan oleh pengguna biasa demi keamanan dan kontrol penuh terhadap sistem.
+
 
 ---
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
-- Bagaimana cara Anda mengatasinya?  
+- Apa bagian yang paling menantang minggu ini?
+
+  Bagian yang paling menantang minggu ini adalah memahami hubungan antarproses dan cara kerja perintah seperti ps, pstree, dan kill, karena membutuhkan pemahaman tentang bagaimana sistem Linux mengelola proses secara hierarkis.
+  
+- Bagaimana cara Anda mengatasinya?
+  
+  Saya mengatasinya dengan membaca dokumentasi perintah menggunakan man, mencoba menjalankan perintah satu per satu di terminal, serta membandingkan hasilnya agar lebih memahami fungsi dan efek setiap perintah secara langsung.
 
 ---
 
