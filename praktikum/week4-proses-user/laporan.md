@@ -123,8 +123,8 @@ Tuliskan potongan kode atau perintah utama:
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/week4_1.png)
-![Screenshot hasil](screenshots/week4_2.png)
+![Screenshot hasil](screenshots/top_1.png)
+![Screenshot hasil](screenshots/top_2.png)
 
 ---
 ## Eksperimen 1
