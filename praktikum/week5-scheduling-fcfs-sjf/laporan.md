@@ -121,10 +121,33 @@ Tuliskan 2–3 poin kesimpulan dari praktikum ini.
 
 ### Quiz
 Tuliskan jawaban di bagian **Quiz** pada laporan:
-1. Apa perbedaan utama antara FCFS dan SJF?  
-2. Mengapa SJF dapat menghasilkan rata-rata waktu tunggu minimum?  
-3. Apa kelemahan SJF jika diterapkan pada sistem interaktif?  
+1. Apa perbedaan utama antara FCFS dan SJF?
+   
+   **Jawaban :**
 
+   Pada FCFS, proses dieksekusi berdasarkan urutan kedatangannya. Artinya, proses yang datang lebih dulu akan dijalankan terlebih
+   dahulu tanpa memperhatikan lama waktu eksekusinya. Algoritma ini sederhana, tetapi bisa menyebabkan proses yang memiliki waktu
+   eksekusi singkat menunggu lama jika ada proses panjang datang lebih dulu.
+   Sedangkan pada SJF, proses dijalankan berdasarkan waktu eksekusi yang paling pendek terlebih dahulu. Jadi, proses yang membutuhkan
+   waktu paling sedikit akan diprioritaskan. Cara ini membuat waktu tunggu rata-rata menjadi lebih kecil dan sistem menjadi lebih
+   efisien. Namun, kekurangannya adalah sulit diterapkan karena waktu eksekusi setiap proses harus diketahui terlebih dahulu.
+
+3. Mengapa SJF dapat menghasilkan rata-rata waktu tunggu minimum?
+   
+   **Jawaban :**
+   SJF menghasilkan waktu tunggu rata-rata paling kecil karena proses dengan waktu eksekusi paling singkat dikerjakan lebih dulu,
+   sehingga proses-proses cepat tidak perlu menunggu lama di belakang proses yang panjang.
+   
+5. Apa kelemahan SJF jika diterapkan pada sistem interaktif?
+
+   **Jawaban :**
+   
+   SFJ tidak cocok untuk lingkungan yang membutuhkan respon cepat dan waktu kedatangan proses yang tidak pasti.
+   Contohnya :
+
+   - Sulit mengetahui waktu eksekusi (burst time) setiap proses di awal, padahal SJF membutuhkannya untuk menentukan prioritas.
+   - Proses panjang bisa terus tertunda (starvation) jika selalu ada proses baru yang lebih pendek datang.
+   - Tidak responsif terhadap permintaan pengguna secara langsung, karena proses yang baru datang bisa harus menunggu proses lain selesai.
 
 ---
 
