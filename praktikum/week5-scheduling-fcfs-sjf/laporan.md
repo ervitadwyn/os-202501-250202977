@@ -1,5 +1,5 @@
-
-# Laporan Praktikum Minggu [X]
+<img width="1036" height="336" alt="image" src="https://github.com/user-attachments/assets/304a62bd-9c19-4992-a83c-0c3229166a5c" />
+# Laporan Praktikum Minggu X
 Topik: Penjadwalan CPU – FCFS dan SJF
 ---
 
@@ -83,33 +83,79 @@ Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
 
 ---
 
----
-
-## Kode / Perintah
-Tuliskan potongan kode atau perintah utama:
-```bash
-uname -a
-lsmod | head
-dmesg | head
-```
-
----
-
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
 ![Screenshot hasil](screenshots/example.png)
 
+**Eksperimen 1**
+
+Gantt Chart
+
+Skenario 1
+
+FCFS
+ ```
+     | P1 | P2 | P3 | P4 |
+     0    6    14   21   24
+ ```
+
+SJF
+ ```
+     | P4 | P1 | P3 | P2 |
+     3    6    12   19   27
+ ```
+Skenario 2
+
+FCFS
+ ```
+     | P1 | P2 | P3 | P4 |
+     1    8    17   25   29
+ ```
+SJF
+ ```
+     | P4 | P1 | P3 | P2 |
+     4    8    15   23   31
+ ```
+
+**Eksperimen 2**
+
+Skenario 1
+ | Algoritma | Avg Waiting Time | Avg Turnaround Time | Kelebihan | Kekurangan |
+     |------------|------------------|----------------------|------------|-------------|
+     | FCFS | 8,75 | 14,75 | Sederhana dan mudah diterapkan | Tidak efisien untuk proses panjang |
+     | SJF | 8,5 | 14,5 | Optimal untuk job pendek | Menyebabkan *starvation* pada job panjang |
+
+Skenario 2
+ | Algoritma | Avg Waiting Time | Avg Turnaround Time | Kelebihan | Kekurangan |
+     |------------|------------------|----------------------|------------|-------------|
+     | FCFS | 10,25 | 17,25 | Sederhana dan mudah diterapkan | Tidak efisien untuk proses panjang |
+     | SJF | 10 | 17 | Optimal untuk job pendek | Menyebabkan *starvation* pada job panjang |
+
 ---
 
 ## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
-- Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+
+Berdasarkan hasil simulasi, algoritma SJF menghasilkan kinerja yang sedikit lebih baik dibanding FCFS, karena mampu meminimalkan waktu tunggu (WT) dan turnaround time (TAT) rata-rata.
+Secara teori, SJF memang dirancang untuk meminimalkan waktu tunggu rata-rata, walaupun lebih sulit diterapkan secara real-time karena harus mengetahui burst time setiap proses sebelumnya.
+
+1. Kondisi di mana SJF lebih unggul dari FCFS
+
+Algoritma SJF (Shortest Job First) akan lebih unggul dan efisien ketika sistem memiliki proses dengan variasi burst time yang cukup besar, artinya ada proses dengan waktu eksekusi yang sangat singkat dan ada yang cukup panjang. Dalam situasi seperti ini, SJF dapat menurunkan rata-rata waktu tunggu (Waiting Time) dan waktu penyelesaian (Turnaround Time) karena proses-proses yang lebih pendek diselesaikan terlebih dahulu, sehingga antrian proses tidak tertahan oleh proses yang panjang.
+Selain itu, SJF juga sangat efektif pada sistem batch processing atau sistem yang burst time-nya sudah diketahui sebelumnya, seperti pada simulasi atau sistem non-interaktif. Dengan begitu, sistem dapat mengatur urutan proses dengan tepat untuk mendapatkan efisiensi maksimal. Secara umum, SJF memberikan kinerja terbaik dalam hal minimasi waktu tunggu rata-rata dan meningkatkan throughput sistem.
+
+2. Kondisi di mana FCFS lebih unggul dari SJF
+
+Sebaliknya, algoritma FCFS (First Come First Served) lebih unggul dan sesuai digunakan pada sistem yang sederhana, di mana setiap proses diperlakukan secara adil berdasarkan urutan kedatangan tanpa memperhatikan lama waktu eksekusi. FCFS lebih cocok untuk lingkungan interaktif atau sistem real-time yang menuntut keadilan (fairness) dan kepastian urutan eksekusi.
+FCFS juga lebih mudah diimplementasikan karena tidak memerlukan informasi tambahan seperti burst time proses. Pada kondisi di mana seluruh proses memiliki burst time yang hampir sama, maka performa FCFS dan SJF akan relatif setara, sehingga FCFS menjadi pilihan praktis dengan kompleksitas rendah.
+
+Namun, perlu diperhatikan bahwa FCFS memiliki kelemahan utama, yaitu kondisi ketika proses dengan burst time panjang datang lebih awal dan membuat proses-proses lain menunggu terlalu lama. Dalam situasi ini, SJF jelas lebih efisien.
+
 
 ---
 
 ## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
+SJF lebih unggul saat sistem memiliki proses dengan variasi burst time yang besar dan burst time diketahui sebelumnya, karena mampu meminimalkan waktu tunggu rata-rata.
+Sedangkan FCFS lebih unggul pada sistem sederhana yang membutuhkan keadilan urutan eksekusi dan tidak memerlukan pengetahuan tentang burst time setiap proses.
 
 ---
 ## D. Tugas & Quiz
