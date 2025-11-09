@@ -1,4 +1,4 @@
-<img width="1036" height="336" alt="image" src="https://github.com/user-attachments/assets/304a62bd-9c19-4992-a83c-0c3229166a5c" />
+
 # Laporan Praktikum Minggu X
 Topik: Penjadwalan CPU – FCFS dan SJF
 ---
