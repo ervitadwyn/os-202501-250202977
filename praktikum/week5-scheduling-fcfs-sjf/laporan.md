@@ -174,10 +174,14 @@ Sedangkan FCFS lebih unggul pada sistem sederhana yang membutuhkan keadilan urut
 ### Tugas
 1. Hitung *waiting time* dan *turnaround time* dari minimal 2 skenario FCFS dan SJF.  
 
+Skenario 1
+
  | Algoritma | Avg Waiting Time | Avg Turnaround Time |
  |------------|------------------|----------------------|
  | FCFS | 8,75 | 14,75 |
  | SJF | 8,5 | 14,5 |
+ 
+Skenario 2
 
  | Algoritma | Avg Waiting Time | Avg Turnaround Time | 
  |------------|------------------|----------------------|
