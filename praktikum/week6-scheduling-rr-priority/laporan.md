@@ -212,12 +212,6 @@ Cocok untuk sistem interaktif yang butuh latency rendah per job kecil, namun mah
  | RR        | 8,5              | 14                  | Adil terhadap semua proses    | Tidak efisien jika quantum tidak tepat |
  | Priority  | 5,25             | 10,75               | Efisien untuk proses penting  | Potensi *starvation* pada prioritas rendah |
 
----
-
----
-
-## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
 
 ---
 
