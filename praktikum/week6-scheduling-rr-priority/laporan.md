@@ -45,6 +45,7 @@ Dua metrik utama dalam evaluasi algoritma penjadwalan:
 Waiting Time (WT) adalah total waktu proses menunggu di ready queue sebelum mendapatkan CPU.
 Turnaround Time (TAT) adalah total waktu dari proses tiba hingga selesai (Completion − Arrival).
 Analisis kedua metrik ini membantu menilai efisiensi dan keadilan dari algoritma scheduling.
+
 ---
 
 ## Langkah Praktikum
@@ -308,7 +309,8 @@ _Priority Scheduling (Non-Preemptive)_
 | RR (q large, e.g. 5)      |         Lebih rendah (lebih mirip FCFS) |     Kurang (proses awal diuntungkan) |                  Rendah |                         Rendah–sedang | Kalau switching mahal atau ingin throughput/turnaround lebih baik |
 | Priority (non-preemptive) | Rendah untuk job yang datang belakangan | Rendah (prioritas menentukan urutan) | Rendah (sedikit switch) | Ada kemungkinan (terutama preemptive) | Jika beberapa job jelas lebih penting (SLA/real-time soft)        |
 
-Penjelasan 
+**Penjelasan** 
+
 a. Pengaruh Time Quantum (pada RR)
 
 - Semakin kecil quantum → pros: lebih responsif terhadap job interaktif / setiap proses mendapat CPU cepat; kontra: lebih banyak context switches → overhead nyata bertambah → avg waiting & turnaround bisa meningkat jika overhead bukan nol. Dalam simulasi: q=2 menghasilkan Avg WT terbesar (9.75) karena banyak switching.
@@ -359,7 +361,7 @@ b. Quantum besar, mirip FCFS.
   
 3. Mengapa algoritma Priority dapat menyebabkan *starvation*?
   
-starvation terjadi karena proses berprioritas rendah berkali-kali dilewati oleh proses prioritas lebih tinggi. Jika proses prioritas tinggi terus datang atau jumlahnya banyak, maka proses prioritas rendah tidak pernah mendapatkan CPU, atau menunggu sangat lama. Algoritma ini tidak memiliki mekanisme otomatis untuk menaikkan prioritas proses yang terlalu lama menunggu (kecuali ditambahkan teknik seperti aging).
+Starvation terjadi karena proses berprioritas rendah berkali-kali dilewati oleh proses prioritas lebih tinggi. Jika proses prioritas tinggi terus datang atau jumlahnya banyak, maka proses prioritas rendah tidak pernah mendapatkan CPU, atau menunggu sangat lama. Algoritma ini tidak memiliki mekanisme otomatis untuk menaikkan prioritas proses yang terlalu lama menunggu (kecuali ditambahkan teknik seperti aging).
 
 ---
 
