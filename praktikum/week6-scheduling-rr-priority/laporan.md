@@ -26,8 +26,25 @@ Setelah menyelesaikan tugas ini, mahasiswa mampu:
 ---
 
 ## Dasar Teori
-Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
 
+1. Penjadwalan CPU (CPU Scheduling)
+Penjadwalan CPU adalah mekanisme sistem operasi untuk menentukan proses mana yang akan menjalankan CPU pada waktu tertentu. Tujuannya adalah memaksimalkan utilisasi CPU, mempercepat respons, meminimalkan waiting time, dan meningkatkan throughput.
+
+2. Context Switching
+Saat CPU berpindah dari satu proses ke proses lain, sistem melakukan context switch untuk menyimpan dan memulihkan state proses. Frekuensi context switch memengaruhi performa; semakin sering berpindah, semakin besar overhead yang ditimbulkan.
+
+3. Round Robin (RR)
+Round Robin merupakan algoritma penjadwalan preemptive yang memberikan jatah waktu sama bagi setiap proses (time quantum). Algoritma ini adil dan cocok untuk lingkungan time-sharing, tetapi performanya sangat dipengaruhi ukuran quantum.
+
+4. Priority Scheduling
+Algoritma ini menjalankan proses berdasarkan tingkat prioritas. Proses dengan prioritas lebih tinggi dieksekusi terlebih dahulu. Pendekatan ini dapat mempercepat penyelesaian proses penting, tetapi berpotensi menimbulkan starvation pada proses berprioritas rendah.
+
+5. Waiting Time & Turnaround Time
+Dua metrik utama dalam evaluasi algoritma penjadwalan:
+
+Waiting Time (WT) adalah total waktu proses menunggu di ready queue sebelum mendapatkan CPU.
+Turnaround Time (TAT) adalah total waktu dari proses tiba hingga selesai (Completion − Arrival).
+Analisis kedua metrik ini membantu menilai efisiensi dan keadilan dari algoritma scheduling.
 ---
 
 ## Langkah Praktikum
@@ -89,7 +106,7 @@ Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+![Screenshot hasil](screenshots/SSpraktekRRPS.png)
 
 ## Eksperimen 1
 
@@ -182,31 +199,18 @@ Sertakan screenshot hasil percobaan atau diagram:
 Saya hitung context switches sebagai jumlah pergantian eksekusi antar-slice (jumlah potongan/dispatches − 1). Ini mengasumsikan tidak ada idle atau overhead yang tersendiri. Jika sistem menambahkan overhead per switch (mis. 0.5 ms/switch), waktu efektif dan utilisasi akan berubah — saya bisa hitung ulang jika Anda ingin memasukkan overhead.
 Karakteristik umum tiap quantum (ringkasan perilaku):
 
-1. q = 2 (kecil)
-
-Banyak preemption / sering potong → fairness responsif (job panjang tidak dominan terus-menerus) tetapi banyak context switches.
-
-Hasil pada dataset ini: Avg WT = 10.75, Avg TAT = 16.25 (paling buruk di antara tiga q yang diuji).
-
+- q = 2 (kecil) Banyak preemption / sering potong → fairness responsif (job panjang tidak dominan terus-menerus) tetapi banyak context switches. Hasil pada dataset ini: Avg WT = 10.75, Avg TAT = 16.25 (paling buruk di antara tiga q yang diuji).
 Cocok untuk sistem interaktif yang butuh latency rendah per job kecil, namun mahal bila switching cost tinggi.
 
-2. q = 3 (menengah)
+- q = 3 (menengah) Trade-off antara responsivitas dan overhead. Di contoh ini menghasilkan Avg WT = 8.50, Avg TAT = 14.00. Masih ada beberapa putaran bagi tiap proses, tapi jumlah switching lebih kecil dibanding q=2.
 
-Trade-off antara responsivitas dan overhead. Di contoh ini menghasilkan Avg WT = 8.50, Avg TAT = 14.00.
-
-Masih ada beberapa putaran bagi tiap proses, tapi jumlah switching lebih kecil dibanding q=2.
-
-3. q = 5 (besar / mendekati FCFS untuk pekerjaan yang datang lebih awal)
-
-Sedikit switching, proses awal (P1) selesai langsung → menurunkan waiting & turnaround rata-rata pada dataset ini (Avg WT = 7.00, Avg TAT = 12.50).
-
-Perilaku mendekati FCFS: bagus jika throughput/turnaround prioritas dan switching overhead besar; buruk jika sistem butuh jaminan respons untuk job interaktif tiba belakangan.
+- q = 5 (besar / mendekati FCFS untuk pekerjaan yang datang lebih awal) Sedikit switching, proses awal (P1) selesai langsung → menurunkan waiting & turnaround rata-rata pada dataset ini (Avg WT = 7.00, Avg TAT = 12.50). Perilaku mendekati FCFS: bagus jika throughput/turnaround prioritas dan switching overhead besar; buruk jika sistem butuh jaminan respons untuk job interaktif tiba belakangan.
 
 ## Eksperimen 4
- | Algoritma | Avg Waiting Time | Avg Turnaround Time | Kelebihan | Kekurangan |
-     |------------|------------------|----------------------|------------|-------------|
-     | RR | 8,5 | 14 | Adil terhadap semua proses | Tidak efisien jika quantum tidak tepat |
-     | Priority | 5,25 | 10,75 | Efisien untuk proses penting | Potensi *starvation* pada prioritas rendah |
+ | Algoritma | Avg Waiting Time | Avg Turnaround Time | Kelebihan                     | Kekurangan                             |
+ |-----------|------------------|---------------------|-----------                    |-------------                           |
+ | RR        | 8,5              | 14                  | Adil terhadap semua proses    | Tidak efisien jika quantum tidak tepat |
+ | Priority  | 5,25             | 10,75               | Efisien untuk proses penting  | Potensi *starvation* pada prioritas rendah |
 
 ---
 
@@ -366,7 +370,7 @@ Starvation terjadi karena proses berprioritas rendah berkali-kali dilewati oleh 
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
+- Apa bagian yang paling menantang minggu ini?
 - Bagaimana cara Anda mengatasinya?  
 
 ---
