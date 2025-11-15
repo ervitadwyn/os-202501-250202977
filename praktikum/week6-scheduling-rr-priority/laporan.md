@@ -365,7 +365,8 @@ b. Quantum besar, mirip FCFS.
   
 3. Mengapa algoritma Priority dapat menyebabkan *starvation*?
   
-Starvation terjadi karena proses berprioritas rendah berkali-kali dilewati oleh proses prioritas lebih tinggi. Jika proses prioritas tinggi terus datang atau jumlahnya banyak, maka proses prioritas rendah tidak pernah mendapatkan CPU, atau menunggu sangat lama. Algoritma ini tidak memiliki mekanisme otomatis untuk menaikkan prioritas proses yang terlalu lama menunggu (kecuali ditambahkan teknik seperti aging).
+starvation terjadi karena proses berprioritas rendah berkali-kali dilewati oleh proses prioritas lebih tinggi. Jika proses prioritas tinggi terus datang atau jumlahnya banyak, maka proses prioritas rendah tidak pernah mendapatkan CPU, atau menunggu sangat lama. Algoritma ini tidak memiliki mekanisme otomatis untuk menaikkan prioritas proses yang terlalu lama menunggu (kecuali ditambahkan teknik seperti aging).
+
 ---
 
 ## Refleksi Diri
