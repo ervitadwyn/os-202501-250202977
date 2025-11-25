@@ -82,7 +82,10 @@ Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+![Screenshot hasil](screenshots/Simulasidiningphilosophers.png)
+![Screenshot hasil](screenshots/Simulasifixedversionsemaphore(mutexglobal).png)
+![Screenshot hasil](screenshots/Simulasifixedversionbatas4maxfilsuf.png)
+![Screenshot hasil](screenshots/Simulasifixedversionoddevenforkpickingrule.png)
 
 ---
 ## Eksperimen 1
