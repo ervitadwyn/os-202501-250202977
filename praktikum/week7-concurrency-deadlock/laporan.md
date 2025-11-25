@@ -130,6 +130,7 @@ for i in range(N):
     t.start()
 ```
 
+
 ## Eksperimen 2
 Versi Fixed (Menggunakan Semaphore / Monitor)
 FIXED VERSION — Semaphore (Mutex Global)
@@ -253,13 +254,114 @@ for i in range(N):
 | **Circular Wait**    | Ya  P0 menunggu P1 → P1 menunggu P2 → … → P4 menunggu P0      | **Max 4 philosophers**: siklus tidak bisa terbentuk <br> **Odd-Even Rule**: urutan pengambilan garpu diubah sehingga tidak ada lingkaran menunggu <br> **Semaphore mutex**: hanya satu yang boleh mengambil garpu, sehingga siklus tidak pernah terbentuk |
 
 
+
 ## Analisis
 
+## Eksperimen 1
 
+Deadlock terjadi ketika seluruh filsuf telah mengambil garpu kiri dan secara bersamaan menunggu garpu kanan. Setiap garpu kanan sedang dipegang oleh filsuf lain sehingga membentuk lingkaran tunggu (circular wait). Akibatnya tidak ada thread yang dapat melanjutkan eksekusi dan program berhenti pada kondisi menunggu selamanya.
+Penjelasan :
+1. Semua filsuf mulai think()
+2. Semua filsuf mencoba mengambil garpu kiri → berhasil
+3. Semua filsuf mencoba mengambil garpu kanan → semua terblokir
+4. Tidak ada filsuf yang dapat makan → deadlock total
 ---
 
+## Eksperimen 2
+
+Berikut analisis hasil modifikasi dari tiga solusi fixed yang sudah kita jalankan dan bukti/logika bahwa deadlock telah dihindari. kita akan:
+
+1. Menyatakan apa yang diubah pada setiap solusi.
+
+2. Menunjukkan argumen (bukti ringkas) mengapa deadlock tidak mungkin terjadi.
+
+3. Memberi tes praktis/log output yang dapat kamu lihat saat menjalankan untuk memastikan tidak deadlock.
+
+4. Menyajikan tabel pemetaan kondisi Coffman → bagaimana tiap solusi mengatasinya.
+
+5. Referensi hasil praktek kamu: screenshot yang kamu kirim ada di path lokal: /mnt/data/Simulasi dining philosophers.png.
+
+1) Solusi A Semaphore (mutex global)
+
+Perubahan: sebelum mengambil garpu, setiap filsuf harus wait(mutex) (semaphore(1)) sehingga hanya 1 filsuf yang boleh masuk ke tahap mengambil kedua garpu sekaligus. Setelah kedua garpu diambil, signal(mutex).
+
+Mengapa deadlock dihilangkan :
+
+Untuk deadlock klasik, keempat kondisi Coffman harus terpenuhi. Teknik ini menghilangkan kondisi Hold-and-Wait: karena filsuf tidak lagi diperbolehkan memegang satu garpu sambil menunggu garpu lain. Ia hanya boleh masuk ke critical section apabila bisa langsung mengambil kedua garpu (karena mutex mem-serial-kan pengambilan).
+
+Tanpa hold-and-wait, tidak mungkin semua filsuf menahan satu garpu dan menunggu lainnya → tidak ada siklus menunggu lengkap.
+
+Bukti informal formal:
+
+Misal ada N filsuf. Karena mutex=1, pada waktu tertentu paling banyak 1 filsuf yang sedang melakukan operasi:
+
+acquire(mutex)
+acquire(left)
+acquire(right)
+release(mutex)
+
+
+Selama filsuf A di critical section, B tidak dapat memulai sequence acquire(left) maka B tidak akan menahan garpu kiri bersamaan dengan A. Jadi tidak ada konfigurasi di mana setiap filsuf memegang satu garpu dan menunggu yang lain.
+
+Cara verifikasi di program :
+
+Saat dijalankan, kamu akan melihat pola: beberapa filsuf berpikir, lalu satu filsuf mengambil kedua garpu dan makan, lalu melepaskan; lalu filsuf lain mendapat giliran.
+
+Indikator tidak-deadlock: dalam window waktu > beberapa detik akan selalu ada progress (setidaknya satu sedang makan... muncul periodik).
+
+2) Solusi B Pembatasan ruang: room semaphore (max 4)
+
+Perubahan: sebelum mencoba mengambil garpu, filsuf wait(room) pada semaphore 4. Hanya 4 filsuf yang boleh masuk mencoba mengambil garpu; minimal 1 filsuf tetap di luar.
+
+Mengapa deadlock dihilangkan :
+
+Deadlock memerlukan setiap filsuf menahan garpu kiri lalu menunggu garpu kanan untuk membentuk siklus panjang (5 → 5). Jika paling banyak 4 yang mencoba, minimal satu garpu akan tetap bebas sehingga setidaknya satu filsuf bisa mengambil kedua garpu dan makan.
+
+Dengan kemunculan satu filsuf yang tidak ikut berebut, siklus P0→P1→...→P4 tidak dapat terbentuk.
+
+Bukti informal :
+
+Asumsikan N=5. Jika hanya k=4 filsuf yang berada dalam fase "mengambil garpu", maka setidaknya 1 garpu tidak dipegang oleh siapapun. Karena setiap filsuf membutuhkan 2 garpu yang bersebelahan, ada setidaknya satu pasangan garpu kosong/tersedia sehingga ada filsuf yang bisa mendapatkan kedua garpu → ia makan → melepaskan → memberi jalan bagi yang lain. Maka tidak mungkin stuck dalam keadaan di mana semua menunggu.
+
+Cara verifikasi di program
+
+Saat dijalankan: kamu akan lihat paling banyak 4 filsuf mencetak mencoba mengambil garpu kiri ... bersamaan; namun selalu ada Filsuf X sedang makan... yang muncul secara berkala.
+
+Gunakan deteksi: jika tidak ada output sedang makan selama X detik (X besar), maka ada masalah — tapi pada implementasi ini seharusnya tidak terjadi.
+
+3) Solusi C  Odd–Even Fork Picking Rule
+
+Perubahan: filsuf dengan id genap mengambil left dulu lalu right; filsuf ganjil mengambil right dulu lalu left.
+
+Mengapa deadlock dihilangkan :
+
+Circular wait bergantung pada urutan pengambilan sumber daya yang sama untuk semua proses. Dengan membuat urutan berbeda antar proses (paritas), tidak mungkin muncul siklus lengkap.
+
+Secara formal, atur tiap garpu diberi nomor; setiap filsuf meminta dua garpu dengan urutan yang menjamin adanya partial order pada permintaan; karena ada setidaknya satu edge arah terbalik dalam siklus, siklus tidak konsisten → kontradiksi.
+
+Bukti formal singkat :
+
+Misal P_i meminta sumber A kemudian B, dan P_j meminta B kemudian A. Untuk membentuk siklus menunggu yang mengitari semua filsuf, setiap edge “menunggu” harus konsisten dengan arah permintaan. Tetapi jika ada pasangan berurutan (even/odd) yang meminta terbalik, maka satu hubungan memecah kemungkinan siklus penuh. Oleh karena itu circular wait tidak dapat terjadi.
+
+Cara verifikasi di program :
+
+Jalankan versi odd-even; cek log: beberapa filsuf bisa mengambil dan makan bersamaan (paralelisme tinggi). Kamu tidak akan melihat pola “semua mengambil left saja lalu menunggu right” lagi.
+
+Perhatikan adanya interleaving di mana beberapa filsuf sukses mengambil kedua garpu walau tetangganya memegang satu.
+
 ## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
+
+1. Versi awal (deadlock version) membuktikan bahwa tanpa mekanisme kontrol, seluruh filsuf dapat masuk kondisi deadlock.
+
+Deadlock terjadi ketika setiap filsuf berhasil mengambil satu garpu (kiri) namun semua menunggu garpu kanan yang dipegang tetangganya. Hal ini memenuhi empat kondisi deadlock (mutual exclusion, hold-and-wait, no preemption, dan circular wait), sehingga tidak ada proses yang dapat melanjutkan eksekusi.
+
+2. Modifikasi pada versi fixed berhasil menghilangkan minimal satu kondisi deadlock, sehingga sistem selalu tetap bergerak (making progress).
+
+Baik dengan semaphore global, pembatasan jumlah filsuf (max 4), maupun aturan pengambilan garpu ganjil–genap, sistem tidak lagi dapat membentuk circular wait atau hold-and-wait. Hasil simulasi menunjukkan bahwa selalu ada filsuf yang dapat makan secara periodik, yang menandakan deadlock berhasil dicegah.
+
+3. Setiap strategi pencegahan deadlock memiliki kelebihan dan kelemahan, namun semua terbukti efektif menghindari kebuntuan total.
+
+Semaphore global memberikan kepastian aman tapi mengurangi paralelisme, pembatasan kapasitas (max 4) lebih efisien, sedangkan strategi ganjil–genap memberikan performa terbaik karena mempertahankan paralelisme sekaligus memutus siklus menunggu.
 
 ---
 
