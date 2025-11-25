@@ -85,6 +85,173 @@ Sertakan screenshot hasil percobaan atau diagram:
 ![Screenshot hasil](screenshots/example.png)
 
 ---
+## Eksperimen 1
+
+Simulasi Dining Philosophers (Deadlock Version)
+```
+import threading
+import time
+import random
+
+# jumlah filsuf
+N = 5
+
+# setiap garpu = 1 lock
+forks = [threading.Lock() for _ in range(N)]
+
+def philosopher(i):
+    left = i
+    right = (i + 1) % N
+
+    while True:
+        print(f"Filsuf {i} sedang berpikir...")
+        time.sleep(random.uniform(0.5, 1.5))
+
+        print(f"Filsuf {i} mencoba mengambil garpu kiri {left}")
+        forks[left].acquire()
+        print(f"Filsuf {i} mengambil garpu kiri {left}")
+
+        print(f"Filsuf {i} mencoba mengambil garpu kanan {right}")
+        forks[right].acquire()  # <-- DI SINI DEADLOCK TERJADI
+        print(f"Filsuf {i} mengambil garpu kanan {right}")
+
+        print(f"Filsuf {i} sedang makan...")
+        time.sleep(random.uniform(0.5, 1.5))
+
+        forks[left].release()
+        forks[right].release()
+        print(f"Filsuf {i} selesai makan dan meletakkan garpu\n")
+
+# Membuat thread
+threads = []
+for i in range(N):
+    t = threading.Thread(target=philosopher, args=(i,))
+    threads.append(t)
+    t.start()
+```
+
+## Eksperimen 2
+Versi Fixed (Menggunakan Semaphore / Monitor)
+FIXED VERSION — Semaphore (Mutex Global)
+```
+import threading
+import time
+import random
+
+N = 5
+forks = [threading.Lock() for _ in range(N)]
+mutex = threading.Semaphore(1)  # mencegah deadlock
+
+def philosopher(i):
+    left = i
+    right = (i + 1) % N
+
+    while True:
+        print(f"Filsuf {i} sedang berpikir...")
+        time.sleep(random.uniform(0.2, 0.6))
+
+        mutex.acquire()  # hanya 1 filsuf yang boleh ambil garpu
+        forks[left].acquire()
+        forks[right].acquire()
+        mutex.release()
+
+        print(f"Filsuf {i} mulai makan...")
+        time.sleep(random.uniform(0.3, 0.7))
+
+        forks[left].release()
+        forks[right].release()
+        print(f"Filsuf {i} selesai makan.\n")
+
+threads = []
+for i in range(N):
+    t = threading.Thread(target=philosopher, args=(i,))
+    t.start()
+```
+
+FIXED VERSION Batasi Maksimal 4 Filsuf
+
+```
+import threading
+import time
+import random
+
+N = 5
+forks = [threading.Lock() for _ in range(N)]
+room = threading.Semaphore(4)   # hanya 4 boleh mencoba makan
+
+def philosopher(i):
+    left = i
+    right = (i + 1) % N
+
+    while True:
+        print(f"Filsuf {i} sedang berpikir...")
+        time.sleep(random.uniform(0.2, 0.6))
+
+        room.acquire()
+        forks[left].acquire()
+        forks[right].acquire()
+
+        print(f"Filsuf {i} makan...")
+        time.sleep(random.uniform(0.3, 0.7))
+
+        forks[left].release()
+        forks[right].release()
+        room.release()
+        print(f"Filsuf {i} selesai makan.\n")
+
+threads = []
+for i in range(N):
+    t = threading.Thread(target=philosopher, args=(i,))
+    t.start()
+```
+
+FIXED VERSION Odd–Even Fork Picking Rule
+
+```
+import threading
+import time
+import random
+
+N = 5
+forks = [threading.Lock() for _ in range(N)]
+
+def philosopher(i):
+    left = i
+    right = (i + 1) % N
+
+    # odd = right-first, even = left-first
+    first = left if i % 2 == 0 else right
+    second = right if i % 2 == 0 else left
+
+    while True:
+        print(f"Filsuf {i} sedang berpikir...")
+        time.sleep(random.uniform(0.2, 0.6))
+
+        forks[first].acquire()
+        forks[second].acquire()
+
+        print(f"Filsuf {i} makan (urutan garpu dibalik)...")
+        time.sleep(random.uniform(0.3, 0.7))
+
+        forks[first].release()
+        forks[second].release()
+        print(f"Filsuf {i} selesai makan.\n")
+
+threads = []
+for i in range(N):
+    t = threading.Thread(target=philosopher, args=(i,))
+    t.start()
+```
+
+## Eksperimen 3
+
+| **Kondisi Deadlock** | **Terjadi di Versi Deadlock?**                                 | **Solusi di Versi Fixed**                                                                                                                                                                                                                                 |
+| -------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Mutual Exclusion** | Ya — setiap garpu hanya bisa digunakan 1 filsuf                | Tetap ada (karena perlu), tetapi *akses garpu dikontrol* menggunakan **mutex atau semaphore** agar tidak menyebabkan hold-and-wait serentak                                                                                                               |
+| **Hold and Wait**    | Ya — semua filsuf memegang garpu kiri dan menunggu garpu kanan | **Semaphore(1)**: filsuf hanya boleh mengambil kedua garpu sekaligus (menghilangkan hold-and-wait) <br> **Max 4**: tidak semua filsuf bisa menahan garpu kiri <br> **Odd-Even**: menghindari menunggu dalam kondisi simetris                              |
+| **No Preemption**    | Ya — garpu tidak bisa direbut paksa                            | Tetap ada (karena garpu tidak bisa direbut), tetapi **deadlock hilang karena circular wait dihilangkan**                                                                                                                                                  |
+| **Circular Wait**    | Ya — P0 menunggu P1 → P1 menunggu P2 → … → P4 menunggu P0      | **Max 4 philosophers**: siklus tidak bisa terbentuk <br> **Odd-Even Rule**: urutan pengambilan garpu diubah sehingga tidak ada lingkaran menunggu <br> **Semaphore mutex**: hanya satu yang boleh mengambil garpu, sehingga siklus tidak pernah terbentuk |
+
 
 ## Analisis
 
