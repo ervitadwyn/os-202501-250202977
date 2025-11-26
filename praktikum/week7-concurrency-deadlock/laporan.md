@@ -5,8 +5,13 @@ Topik: Sinkronisasi Proses dan Masalah Deadlock
 ---
 
 ## Identitas
-- **Nama**  : Ervita Dwi Riyanti
-- **NIM**   : 250202977
+-  ## Nama Kelompok
+ Ervita Dwi Riyanti bertugas sebagai Ketua Kelompok dan analisis [250202977] ,
+
+ Saskia Istiqomah bertugas implementasi [250202967] , 
+
+ Zaki Humam Faradi bertugas dokumentasi [250202972] ,
+
 - **Kelas** : 1IKRA
 
 ---
