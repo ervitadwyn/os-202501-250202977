@@ -101,7 +101,7 @@ praktikum/week9-sim-scheduling/
 ---
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/screenshot.png)
+![Screenshot hasil](screenshots/Praktek_Python.png)
 ## Alur Program
 Program simulasi dibuat menggunakan bahasa Python dengan alur sebagai berikut:
 1. Membaca dataset dari file CSV.
