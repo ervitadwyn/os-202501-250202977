@@ -147,12 +147,12 @@ Resource tidak dapat direbut secara paksa dari proses yang sedang menggunakannya
 4. Circular Wait
 
 Terdapat siklus ketergantungan antar proses. Terpenuhi, karena P1 → P2 → P3 → P1.
----
-
 Karena keempat kondisi deadlock terpenuhi secara simultan dan tidak terdapat proses yang dapat dieksekusi hingga selesai, maka sistem berada dalam kondisi deadlock. Program deteksi deadlock berhasil mengidentifikasi proses-proses yang terlibat dalam deadlock secara tepat.
 
 Solusi pencegahan deadlock
 Deadlock dapat dicegah dengan menghilangkan salah satu dari empat kondisi deadlock. Pada kasus ini, penerapan resource ordering untuk mencegah circular wait merupakan solusi paling efektif. Alternatif lain adalah penggunaan algoritma penghindaran seperti Banker atau pendekatan deteksi dan pemulihan dengan menghentikan salah satu proses yang terlibat.
+
+---
 
 ## Kesimpulan
 Praktikum ini berhasil mensimulasikan dan mendeteksi kondisi deadlock pada sistem operasi menggunakan pendekatan algoritmik berbasis alokasi dan permintaan resource.
