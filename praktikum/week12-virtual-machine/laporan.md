@@ -99,10 +99,12 @@ praktikum/week12-virtual-machine/
 ## Hasil Eksekusi
 
 1. Instalasi VirtualBox
+
 ![Screenshot hasil](screenshots/instalasi.png)
 VirtualBox diinstal pada sistem operasi host dengan menjalankan installer hingga proses instalasi selesai. Setelah instalasi berhasil, aplikasi VirtualBox dapat dijalankan dengan normal.
 
 2. Pembuatan Virtual Machine
+
 ![Screenshot hasil](screenshots/pembuatan_os_guess.png)
 VM baru dibuat dengan konfigurasi sebagai berikut:
 
@@ -113,6 +115,7 @@ Tipe OS: Linux
 Versi: Ubuntu (64-bit)
 
 3. Konfigurasi Resource Awal
+
 ![Screenshot hasil](screenshots/konfigurasi_resource.png)
 
 Resource awal yang diberikan pada VM:
@@ -124,6 +127,7 @@ CPU: 1 core
 Storage: 20 GB (VDI, Dynamically Allocated)
 
 4. Instalasi Sistem Operasi Guest
+
 ![Screenshot hasil](screenshots/os_guest_running.png)
 
 File ISO Ubuntu digunakan untuk menginstal sistem operasi guest. Proses instalasi dilakukan hingga selesai dan guest OS dapat melakukan login ke desktop Ubuntu.
