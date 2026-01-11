@@ -103,7 +103,7 @@ praktikum/week12-virtual-machine/
 VirtualBox diinstal pada sistem operasi host dengan menjalankan installer hingga proses instalasi selesai. Setelah instalasi berhasil, aplikasi VirtualBox dapat dijalankan dengan normal.
 
 2. Pembuatan Virtual Machine
-![Screenshot hasil](screenshots/pembuatan.png)
+![Screenshot hasil](screenshots/pembuatan_os_guess.png)
 VM baru dibuat dengan konfigurasi sebagai berikut:
 
 Nama VM: Ubuntu-Week12
