@@ -252,3 +252,25 @@ docker run -it os-simulator
 Berdasarkan hasil perancangan, implementasi, dan pengujian yang telah dilakukan, dapat disimpulkan bahwa proyek Mini Simulasi Sistem Operasi ini berhasil mengintegrasikan beberapa konsep utama sistem operasi ke dalam satu aplikasi simulasi berbasis terminal. Modul CPU Scheduling, Page Replacement, dan Deadlock Detection dapat bekerja secara terpadu dalam mengelola sumber daya sistem. Pada modul CPU Scheduling, algoritma FCFS dan SJF non-preemptive berhasil disimulasikan sesuai teori, di mana FCFS menunjukkan kelemahan berupa meningkatnya waktu tunggu pada proses yang datang belakangan, sedangkan SJF mampu memberikan waktu tunggu rata-rata yang lebih rendah dengan memprioritaskan proses berdurasi terpendek. Pada modul Page Replacement, algoritma LRU terbukti lebih efisien dibandingkan FIFO karena menghasilkan jumlah page fault yang lebih rendah dan hit ratio yang lebih tinggi, sesuai dengan konsep pengelolaan memori virtual yang mempertimbangkan riwayat penggunaan page.
 
 Pada modul Deadlock Detection, pengujian menggunakan dataset dalam kondisi aman (safe state) menunjukkan bahwa sistem tidak mengalami deadlock dan seluruh proses dapat menyelesaikan eksekusinya dengan baik. Hal ini membuktikan bahwa algoritma deteksi deadlock mampu mengidentifikasi kondisi sistem secara tepat, baik dalam keadaan aman maupun tidak. Selain keberhasilan teknis, proyek ini juga memberikan pengalaman penting dalam kerja tim dan manajemen proyek perangkat lunak melalui penggunaan Git sebagai alat kolaborasi dan Docker sebagai media deployment untuk memastikan lingkungan eksekusi yang konsisten. Secara keseluruhan, proyek ini telah memenuhi tujuan praktikum dan berkontribusi dalam meningkatkan pemahaman konseptual serta keterampilan praktis mahasiswa dalam bidang sistem operasi dan pengembangan perangkat lunak.
+
+---
+## Quiz
+
+1. Tantangan terbesar integrasi modul apa, dan bagaimana solusinya?
+
+**Jawaban :**
+
+Tantangan terbesar dalam integrasi modul adalah menyatukan beberapa modul dengan format input dan output yang berbeda ke dalam satu aplikasi CLI. Solusinya adalah menerapkan desain modular dengan main.py sebagai controller utama, sehingga setiap modul dapat dijalankan secara terpisah namun tetap terintegrasi dalam satu alur aplikasi.
+
+2. Mengapa Docker membantu proses demo dan penilaian proyek? 
+
+**Jawaban :**
+
+Docker membantu karena menyediakan lingkungan eksekusi yang konsisten dan dapat direproduksi. Dengan Docker, aplikasi dapat dijalankan tanpa tergantung pada konfigurasi sistem host, sehingga proses demo dan penilaian menjadi lebih mudah, cepat, dan minim kesalahan teknis.
+
+3. Jika dataset diperbesar 10x, modul mana yang paling terdampak?
+
+**Jawaban :**
+
+Jika dataset diperbesar 10 kali lipat, modul Page Replacement, khususnya algoritma LRU, paling terdampak karena membutuhkan pengecekan riwayat penggunaan page. Modul CPU Scheduling juga terdampak namun relatif lebih ringan, sedangkan modul Deadlock Detection paling stabil karena ukuran dataset yang kecil dan statis.
+
