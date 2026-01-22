@@ -274,3 +274,4 @@ Docker membantu karena menyediakan lingkungan eksekusi yang konsisten dan dapat 
 
 Jika dataset diperbesar 10 kali lipat, modul Page Replacement, khususnya algoritma LRU, paling terdampak karena membutuhkan pengecekan riwayat penggunaan page. Modul CPU Scheduling juga terdampak namun relatif lebih ringan, sedangkan modul Deadlock Detection paling stabil karena ukuran dataset yang kecil dan statis.
 
+
